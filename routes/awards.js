@@ -10,7 +10,7 @@ let User = require('../models/user')
 
 // Add Route
 router.get('/add', ensureAuthenticated, (req, res) => {
-  res.render('add_article', {
+  res.render('add_award', {
     title: 'Add Award'
   })
 })
@@ -24,7 +24,7 @@ router.post('/add', (req, res) => {
   let errors = req.validationErrors()
 
   if (errors) {
-    res.render('add_article', {
+    res.render('add_award', {
       title: 'Add Award',
       errors
     })
@@ -56,7 +56,7 @@ router.get('/edit/:id', (req, res) => {
         res.redirect('/')
       }
       award.name = req.user.name
-      res.render('edit_article', {
+      res.render('edit_award', {
         title: 'Edit Award',
         award
       })
