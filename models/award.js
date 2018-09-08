@@ -1,6 +1,6 @@
 let mongoose = require('mongoose')
 
-// Article Schema
+// Award Schema
 let articleSchema = mongoose.Schema({
   title: {
     type: String,
@@ -16,4 +16,4 @@ let articleSchema = mongoose.Schema({
   }
 })
 
-let Article = module.exports = mongoose.model('Article', articleSchema)
+let Award = module.exports = mongoose.model('Award', articleSchema)

@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1= award.title
+  h5 Award recipient: #{author}
+  p= award.body
+  hr
+  if user
+    if user.id ==award.author
+      a.btn.btn-primary(href="/awards/edit/"+award._id) Edit
+      a.btn.btn-danger.delete-award(href='#', data-id=award._id) Delete

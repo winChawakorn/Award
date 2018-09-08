@@ -25,7 +25,7 @@ db.on('error', (err) => {
 const app = express()
 
 // Bring in Models
-let Article = require('./models/article')
+let Award = require('./models/award')
 
 // Load View Engine
 app.set('views', path.join(__dirname, 'views'))
@@ -86,22 +86,22 @@ app.get('*', (req, res, next) => {
 
 // Home Route
 app.get('/', (req, res) => {
-  Article.find({}, (err, articles) => {
+  Award.find({}, (err, awards) => {
     if (err) {
       console.log(err)
     } else {
       res.render('index', {
         title: 'Articles',
-        articles
+        awards
       })
     }
   })
 })
 
 // Route Files
-let articles = require('./routes/articles')
+let awards = require('./routes/awards')
 let users = require('./routes/users')
-app.use('/articles', articles)
+app.use('/awards', awards)
 app.use('/users', users)
 
 // Start Server

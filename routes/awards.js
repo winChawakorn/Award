@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
-// Bring in Article Model
-let Article = require('../models/article')
+// Bring in Award Model
+let Award = require('../models/award')
 
 // User Model
 let User = require('../models/user')
@@ -11,7 +11,7 @@ let User = require('../models/user')
 // Add Route
 router.get('/add', ensureAuthenticated, (req, res) => {
   res.render('add_article', {
-    title: 'Add Article'
+    title: 'Add Award'
   })
 })
 
@@ -25,20 +25,20 @@ router.post('/add', (req, res) => {
 
   if (errors) {
     res.render('add_article', {
-      title: 'Add Article',
+      title: 'Add Award',
       errors
     })
   } else {
-    let article = new Article()
-    article.title = req.body.title
-    article.author = req.user._id
-    article.body = req.body.body
+    let award = new Award()
+    award.title = req.body.title
+    award.author = req.user._id
+    award.body = req.body.body
 
-    article.save(err => {
+    award.save(err => {
       if (err) {
         console.log(err)
       } else {
-        req.flash('success', 'Article Added')
+        req.flash('success', 'Award Added')
         res.redirect('/')
       }
     })
@@ -47,18 +47,18 @@ router.post('/add', (req, res) => {
 
 // Load Edit Form
 router.get('/edit/:id', (req, res) => {
-  Article.findById(req.params.id, (err, article) => {
+  Award.findById(req.params.id, (err, award) => {
     if (err) {
       console.log(err)
     } else {
-      if (article.author != req.user._id) {
+      if (award.author != req.user._id) {
         req.flash('danger', 'Not Authorized')
         res.redirect('/')
       }
-      article.name = req.user.name
+      award.name = req.user.name
       res.render('edit_article', {
-        title: 'Edit Article',
-        article
+        title: 'Edit Award',
+        award
       })
     }
   })
@@ -66,24 +66,24 @@ router.get('/edit/:id', (req, res) => {
 
 // Update Submit POST Route
 router.post('/edit/:id', (req, res) => {
-  let article = {}
-  article.title = req.body.title
-  article.author = req.body.author
-  article.body = req.body.body
+  let award = {}
+  award.title = req.body.title
+  award.author = req.body.author
+  award.body = req.body.body
 
   let query = { _id: req.params.id }
 
-  Article.update(query, article, err => {
+  Award.update(query, award, err => {
     if (err) {
       console.log(err)
     } else {
-      req.flash('success', 'Article Updated')
+      req.flash('success', 'Award Updated')
       res.redirect('/')
     }
   })
 })
 
-// Delete Article
+// Delete Award
 router.delete('/:id', (req, res) => {
   if (!req.user._id) {
     res.status(500).send()
@@ -91,11 +91,11 @@ router.delete('/:id', (req, res) => {
 
   let query = { _id: req.params.id }
 
-  Article.findById(req.params.id, (err, article) => {
-    if (article.author != req.user._id) {
+  Award.findById(req.params.id, (err, award) => {
+    if (award.author != req.user._id) {
       res.status(500).send()
     } else {
-      Article.remove(query, err => {
+      Award.remove(query, err => {
         if (err) {
           console.log(err)
         }
@@ -108,18 +108,18 @@ router.delete('/:id', (req, res) => {
 
 })
 
-// Get Single Article
+// Get Single Award
 router.get('/:id', (req, res) => {
-  Article.findById(req.params.id, (err, article) => {
+  Award.findById(req.params.id, (err, award) => {
     if (err) {
       console.log(err)
     } else {
-      User.findById(article.author, (err, user) => {
+      User.findById(award.author, (err, user) => {
         if (err) {
           console.log(err)
         } else {
-          res.render('article', {
-            article,
+          res.render('award', {
+            award,
             author: user.name
           })
         }

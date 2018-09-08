@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1 #{title}
+  form(method='POST', action='/awards/edit/'+award._id)
+    #form-group
+      label Title:
+      input.form-control(name='title', type='text', value=award.title)
+    #form-group
+      input.form-control.hide(name='author', type='text', value=award.author)
+    #form-group
+      label Author:
+      input.form-control(name='name', type='text', readonly='ro', value=award.name)
+    #form-group
+      label Body:
+      textarea.form-control(name='body')= award.body
+    br
+    input.btn.btn-primary(type='submit',value='Submit')
