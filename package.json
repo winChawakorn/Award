@@ -5,6 +5,10 @@
   "scripts": {
     "start": "nodemon app"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/winChawakorn/Award"
+  },
   "author": "Chawakorn Suphepre 5910545671",
   "license": "MIT",
   "dependencies": {
